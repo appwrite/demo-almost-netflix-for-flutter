@@ -263,7 +263,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           elevation: 0.0,
           centerTitle: true,
           title: const Text(
-            'Appflix',
+            'Almost Netflix',
             style: TextStyle(
               fontSize: 30.0,
               fontWeight: FontWeight.bold,
