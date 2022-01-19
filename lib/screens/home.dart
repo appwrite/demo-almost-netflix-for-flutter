@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       });
 
-    context.read<EntryProvider>().list();
+    
     super.initState();
   }
 
@@ -56,11 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.cast),
-        backgroundColor: Colors.grey[850],
-        onPressed: () {},
-      ),
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 70.0),
         child: ContentBar(
@@ -77,21 +72,24 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.only(top: 20),
             sliver: SliverToBoxAdapter(
               child: Previews(
-                key:PageStorageKey('previews'),
-                title: 'Previews',
+                key:PageStorageKey('popular'),
+                title: 'Popular this week',
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: ContentList(
+                title: 'Only on Almost Netflix',
+                contentList: context.watch<EntryProvider>().entries,
+                isOriginal: false,
               ),
             ),
           ),
           SliverToBoxAdapter(
             child: ContentList(
-              title: 'Mylist',
-              contentList: context.watch<EntryProvider>().entries,
-              isOriginal: false,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: ContentList(
-              title: 'Netflix Originals',
+              title: 'New releases',
               contentList: context.watch<EntryProvider>().originals,
               isOriginal: true,
             ),
@@ -100,8 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(bottom: 20),
             sliver: SliverToBoxAdapter(
               child: ContentList(
-                title: 'Trending',
-                contentList: context.watch<EntryProvider>().trending,
+                title: 'Animation',
+                contentList: context.watch<EntryProvider>().animations,
                 isOriginal: false,
               ),
             ),

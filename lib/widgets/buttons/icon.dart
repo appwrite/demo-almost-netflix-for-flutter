@@ -22,7 +22,7 @@ class VerticalIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: tap(),
+      onTapUp: (_) { tap(); },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

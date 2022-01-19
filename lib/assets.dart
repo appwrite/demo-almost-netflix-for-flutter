@@ -9,7 +9,7 @@
 //
 
 class Assets {
-  static const String _images = 'images/';
+  static const String _images = 'assets/';
 
   static const String netflixLogo0 = '${_images}netflix_logo0.png';
   static const String netflixLogo1 = '${_images}netflix_logo1.png';

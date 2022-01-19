@@ -16,33 +16,6 @@ import 'package:netflix_clone/widgets/buttons/icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class _PlayButton extends StatelessWidget {
-  const _PlayButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      color: Colors.white,
-      onPressed: () {
-        print('play');
-      },
-      child: Row(
-        children: const [
-          Icon(
-            Icons.play_arrow,
-            size: 30,
-          ),
-          Text(
-            'Play',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-
 class ContentHeader extends StatelessWidget {
   final Entry featured;
   
@@ -54,7 +27,7 @@ class ContentHeader extends StatelessWidget {
     return FutureBuilder(
       future: context.read<EntryProvider>().imageFor(featured),
       builder: (context, snapshot) {
-        if(snapshot.connectionState == ConnectionState.waiting) {
+        if(snapshot.hasData == false || snapshot.data == null) {
           return const SizedBox(
             height: 500,
             child: Center(child: CircularProgressIndicator(),),
@@ -102,11 +75,11 @@ class ContentHeader extends StatelessWidget {
                     title: 'List',
                     tap: () => print('list'),
                   ),
-                const _PlayButton(),
+                  const Spacer(),
                   VerticalIconButton(
                     icon: Icons.info,
                     title: 'Info',
-                    tap: () => print('list'),
+                    tap: () => print('info'),
                   )
                 ],
               ),

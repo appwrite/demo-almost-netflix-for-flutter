@@ -10,6 +10,7 @@
 
 import 'package:netflix_clone/providers/account.dart';
 import 'package:netflix_clone/providers/entry.dart';
+import 'package:netflix_clone/providers/watchlist.dart';
 import 'package:netflix_clone/screens/navigation.dart';
 import 'package:netflix_clone/screens/onboarding.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,9 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => EntryProvider()),
         ChangeNotifierProvider(create: (context) => AccountProvider()),
+        ChangeNotifierProvider(create: (context) => EntryProvider()),
+        ChangeNotifierProvider(create: (context) => WatchListProvider()),
       ],
       child: Main(),
     )

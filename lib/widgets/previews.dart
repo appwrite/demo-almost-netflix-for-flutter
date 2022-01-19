@@ -95,7 +95,7 @@ class _PreviewsState extends State<Previews> {
 
   @override
   Widget build(BuildContext context) {
-    var entries = context.watch<EntryProvider>().entries;
+    var entries = context.read<EntryProvider>().entries;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +103,7 @@ class _PreviewsState extends State<Previews> {
         const Padding(
           padding: EdgeInsets.only(left: 30.0),
           child: Text(
-            'Previews',
+            'Popular this week',
             style: TextStyle(
               color: Colors.white, 
               fontWeight: FontWeight.bold, 

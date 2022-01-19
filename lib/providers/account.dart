@@ -64,19 +64,14 @@ class AccountProvider extends ChangeNotifier {
   }
 
   Future<void> login(String email, String password) async {
-    print("Signing in");
-
     try {
       final result = await ApiClient.account.createSession(email: email, password: password);
       _session = result;
-
-      print("Session: $result");
 
       Store.set("session", json.encode(result.toMap()));
 
       notifyListeners();
     } catch(e) {
-      print("Failed to login: $e");
       _session = null;
     }
   }
