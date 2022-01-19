@@ -68,12 +68,13 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: ContentHeader(featured: context.watch<EntryProvider>().featured),
           ),
-          const SliverPadding(
-            padding: EdgeInsets.only(top: 20),
-            sliver: SliverToBoxAdapter(
-              child: Previews(
-                key:PageStorageKey('popular'),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              child: ContentList(
                 title: 'Popular this week',
+                contentList: context.watch<EntryProvider>().trending,
+                isOriginal: false,
               ),
             ),
           ),
