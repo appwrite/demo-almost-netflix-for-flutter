@@ -232,7 +232,7 @@ class _DetailHeader extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(5),
                     child: Text(
-                      "${(featured.durationMinutes.inMinutes / 60).toStringAsFixed(2).replaceAll('.', 'h')}m",
+                      "${(featured.durationMinutes.inMinutes / 60).floor().toStringAsFixed(2).replaceAll('.', 'h')}m",
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
