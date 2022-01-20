@@ -1,4 +1,4 @@
-# Almost Netflix - Web
+# Almost Netflix - Flutter
 
 
 ![Banner](readme_banner.png)
