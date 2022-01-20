@@ -12,9 +12,12 @@ import 'dart:typed_data';
 
 import 'package:netflix_clone/data/entry.dart';
 import 'package:netflix_clone/providers/entry.dart';
+import 'package:netflix_clone/providers/watchlist.dart';
+import 'package:netflix_clone/screens/details.dart';
 import 'package:netflix_clone/widgets/buttons/icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 
 class ContentHeader extends StatelessWidget {
   final Entry featured;
@@ -97,7 +100,9 @@ class ContentHeader extends StatelessWidget {
                   VerticalIconButton(
                     icon: Icons.add,
                     title: 'List',
-                    tap: () => print('list'),
+                    tap: () {
+                      context.read<WatchListProvider>().add(featured);
+                    },
                   ),
 
                   const SizedBox(width: 40),
@@ -118,7 +123,12 @@ class ContentHeader extends StatelessWidget {
                   VerticalIconButton(
                     icon: Icons.info,
                     title: 'Info',
-                    tap: () => print('info'),
+                    tap: () async {
+                      await showDialog(
+                        context: context, 
+                        builder: (context) => DetailsScreen(entry: featured)
+                      );
+                    },
                   ),
                   const Spacer(),
                 ],

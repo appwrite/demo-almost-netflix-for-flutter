@@ -13,7 +13,9 @@ import 'dart:typed_data';
 import 'package:netflix_clone/data/entry.dart';
 import 'package:netflix_clone/providers/entry.dart';
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/screens/details.dart';
 import 'package:provider/provider.dart';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 
 class Previews extends StatefulWidget {
   final String title;
@@ -130,7 +132,12 @@ class _PreviewsState extends State<Previews> {
                 final Entry entry = entries[index];
 
                 return GestureDetector(
-                  onTap: () => print(entry.name),
+                  onTap: () async {
+                    await showDialog(
+                      context: context, 
+                      builder: (context) => DetailsScreen(entry: entry)
+                    );
+                  },
                   child: _renderStack(entry),
                 );
               }),
