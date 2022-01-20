@@ -40,26 +40,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _renderSignIn() {
     return Container(
-        padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+        padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+              Center(
+                child: Image.asset('assets/logo.png', width: 200),
+              ),
+              const SizedBox(height: 60),
               TextField(
                 controller: _emailController,
-                autofocus: true,
+                autofocus: false,
                 autocorrect: false,
                 enableSuggestions: false,
                 decoration: const InputDecoration(
                   filled: true,
                   fillColor: Colors.grey,
-                  labelText: 'Email address',
+                  labelText: 'Email',
                   floatingLabelStyle: TextStyle(color: Colors.black),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                 ),
               ),
-              const SizedBox(height: 20.0),
+              Container(
+                height: 0.1,
+                color: Colors.black,
+              ),
                TextField(
                 controller: _passwordController,
                 obscureText: true,
@@ -76,46 +83,45 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              MaterialButton(
-                child: const Text(
-                  "Sign in",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22.0
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    side: const BorderSide(width: 1.0, color: Colors.grey),
                   ),
+                  child: const Text(
+                    "Sign in",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22.0
+                    ),
+                  ),
+                  onPressed: () async {
+                    final api = context.read<AccountProvider>();
+                    final email = _emailController.text;
+                    final password = _passwordController.text;
+
+                    if (email.isEmpty || password.isEmpty) {
+                      showDialog(context: context, builder: (_) => AlertDialog(
+                        title: const Text('Error'),
+                        content: const Text('Please enter your email and password'),
+                        actions: [
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () => Navigator.of(context).pop(),
+                          )
+                        ],
+                      ));
+
+                      return;
+                    }
+                    
+                    await api.login(email, password);
+
+                  },
                 ),
-                onPressed: () async {
-                  final api = context.read<AccountProvider>();
-                  final email = _emailController.text;
-                  final password = _passwordController.text;
-
-                  if (email.isEmpty || password.isEmpty) {
-                    showDialog(context: context, builder: (_) => AlertDialog(
-                      title: const Text('Error'),
-                      content: const Text('Please enter your email and password'),
-                      actions: [
-                        TextButton(
-                          child: const Text('OK'),
-                          onPressed: () => Navigator.of(context).pop(),
-                        )
-                      ],
-                    ));
-
-                    return;
-                  }
-                  
-                  await api.login(email, password);
-
-                },
-              ),
-              const SizedBox(height: 10.0),
-              MaterialButton(
-                child: const Text(
-                  "Forgot your password?",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {},
               ),
               const SizedBox(height: 40.0),
               MaterialButton(
@@ -129,6 +135,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   });
                 },
               ),
+              const SizedBox(height: 10.0),
+              MaterialButton(
+                child: const Text(
+                  "Forgot your password?",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {},
+              ),
             ],
         ),
       );
@@ -141,9 +155,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+              Center(
+                child: Image.asset('assets/logo.png', width: 200),
+              ),
+              const SizedBox(height: 60),
               TextField(
                 controller: _nameController,
-                autofocus: true,
+                autofocus: false,
                 autocorrect: false,
                 enableSuggestions: false,
                 decoration: const InputDecoration(
@@ -155,10 +173,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   border: InputBorder.none,
                 ),
               ),
-              const SizedBox(height: 20.0),
+              Container(
+                height: 0.1,
+                color: Colors.black,
+              ),
               TextField(
                 controller: _emailController,
-                autofocus: true,
+                autofocus: false,
                 autocorrect: false,
                 enableSuggestions: false,
                 decoration: const InputDecoration(
@@ -170,7 +191,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   border: InputBorder.none,
                 ),
               ),
-              const SizedBox(height: 20.0),
+              Container(
+                height: 0.1,
+                color: Colors.black,
+              ),
                TextField(
                 controller: _passwordController,
                 obscureText: true,
@@ -187,39 +211,46 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              MaterialButton(
-                child: const Text(
-                  "Sign Up",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22.0
-                  ),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      side: const BorderSide(width: 1.0, color: Colors.grey),
+                    ),
+                    child: const Text(
+                      "Sign in",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22.0
+                      ),
+                    ),
+                  onPressed: () async {
+                    final api = context.read<AccountProvider>();
+                    final name = _nameController.text;
+                    final email = _emailController.text;
+                    final password = _passwordController.text;
+
+                    if (email.isEmpty || password.isEmpty) {
+                      showDialog(context: context, builder: (_) => AlertDialog(
+                        title: const Text('Error'),
+                        content: const Text('Please enter your email and password'),
+                        actions: [
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () => Navigator.of(context).pop(),
+                          )
+                        ],
+                      ));
+
+                      return;
+                    }
+                    
+                    await api.register(email, password, name);
+
+                  },
                 ),
-                onPressed: () async {
-                  final api = context.read<AccountProvider>();
-                  final name = _nameController.text;
-                  final email = _emailController.text;
-                  final password = _passwordController.text;
-
-                  if (email.isEmpty || password.isEmpty) {
-                    showDialog(context: context, builder: (_) => AlertDialog(
-                      title: const Text('Error'),
-                      content: const Text('Please enter your email and password'),
-                      actions: [
-                        TextButton(
-                          child: const Text('OK'),
-                          onPressed: () => Navigator.of(context).pop(),
-                        )
-                      ],
-                    ));
-
-                    return;
-                  }
-                  
-                  await api.register(email, password, name);
-
-                },
               ),
               const SizedBox(height: 10.0),
               MaterialButton(
@@ -256,22 +287,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        preferredSize: Size(screenSize.width, 70.0),
-        child: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          centerTitle: true,
-          title: const Text(
-            'Almost Netflix',
-            style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.red,
-            ),
-          ),
-        ),
-      ),
       body: IndexedStack(
         index: _selectedIndex,
         children: [

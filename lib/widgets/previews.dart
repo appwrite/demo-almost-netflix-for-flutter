@@ -84,7 +84,17 @@ class _PreviewsState extends State<Previews> {
               left: 0,
               child: SizedBox(
                 height: 60,
-                child: Image.memory((snapshot.data! as Uint8List)),
+                child: Text(
+                  entry.name.length > 14
+                  ? entry.name.substring(0, 14)
+                  : entry.name,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
               ),
             ),
           ],

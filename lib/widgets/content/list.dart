@@ -22,12 +22,15 @@ class ContentList extends StatelessWidget {
   final String title;
   final List<Entry> contentList;
   bool isOriginal;
-  ContentList(
-      {Key? key,
-      required this.title,
-      required this.contentList,
-      required this.isOriginal})
-      : super(key: key);
+  bool _rounded;
+
+  ContentList({
+    Key? key,
+    required this.title,
+    required this.contentList,
+    required this.isOriginal,
+    bool rounded = false,
+  }) : _rounded = rounded, super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class ContentList extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: isOriginal ? 500 : 250,
+          height: 200,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: contentList.length,
@@ -60,9 +63,8 @@ class ContentList extends StatelessWidget {
                   );
                 },
                 child: Container(
-                  height: isOriginal ? 400 : 200,
-                  width: isOriginal ? 250 : 170,
-                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  height: 100,
+                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                   child: FutureBuilder<Uint8List>(
                     future: context.read<EntryProvider>().imageFor(current),
                     builder: (context, snapshot) => snapshot.hasData

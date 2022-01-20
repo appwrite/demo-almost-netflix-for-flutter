@@ -33,7 +33,11 @@ class ContentBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Spacer(),
+                  const Spacer(),
+                  _AppBarButton("TV Shows", () {}),
+                  const Spacer(),
+                  _AppBarButton("Movies", () {}),
+                  const Spacer(),
                   _AppBarButton('My List', () async {
                     await showDialog(
                       context: context, 
@@ -63,7 +67,7 @@ class _AppBarButton extends StatelessWidget {
       child: Text(
         title,
         style: const TextStyle(
-            color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w700),
+            color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w500),
       ),
     );
   }

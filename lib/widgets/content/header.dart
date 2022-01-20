@@ -57,30 +57,70 @@ class ContentHeader extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 110,
+              bottom: 120,
               child: SizedBox(
                 width: 250,
-                child: Image.memory((snapshot.data! as Uint8List)),
+                child: Text(
+                  featured.name,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ),
+            ),
+            Positioned(
+              bottom: 88,
+              child: SizedBox(
+                width: 250,
+                child: Text(
+                  featured.tags.replaceAll(", ", " • "),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.normal,
+                  ),
+                )
               ),
             ),
             Positioned(
               right: 0,
               left: 0,
-              bottom: 40,
+              bottom: 20,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  const Spacer(),
                   VerticalIconButton(
                     icon: Icons.add,
                     title: 'List',
                     tap: () => print('list'),
                   ),
-                  const Spacer(),
+
+                  const SizedBox(width: 40),
+
+                  MaterialButton(
+                    color: Colors.white,
+                    child: Row(
+                      children: const [
+                        Icon(Icons.play_arrow),
+                        Text("Play")
+                      ],
+                    ),
+                    onPressed: (){}
+                  ),
+
+                  const SizedBox(width: 40),
+
                   VerticalIconButton(
                     icon: Icons.info,
                     title: 'Info',
                     tap: () => print('info'),
-                  )
+                  ),
+                  const Spacer(),
                 ],
               ),
             )
