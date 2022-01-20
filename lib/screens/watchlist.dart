@@ -12,6 +12,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/providers/watchlist.dart';
+import 'package:netflix_clone/screens/details.dart';
 import 'package:netflix_clone/widgets/buttons/icon.dart';
 import 'package:provider/provider.dart';
 import 'package:netflix_clone/data/entry.dart';
@@ -122,7 +123,15 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
             )
           )  
           : ListView(
-            children: snapshot.data!.map((entry) => _row(entry)).toList(),
+            children: snapshot.data!.map((entry) => GestureDetector(
+              child: _row(entry),
+              onTap:() async {
+                await showDialog(
+                  context: context, 
+                  builder: (context) => DetailsScreen(entry: entry)
+                );
+              }
+            )).toList(),
           );
         }
       )
