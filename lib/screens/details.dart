@@ -84,10 +84,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
               children: [
                 const Spacer(),
                 VerticalIconButton(
-                  icon: Icons.add, 
+                  icon: context.read<WatchListProvider>().isOnList(widget._entry) ? Icons.check : Icons.add, 
                   title: "My List", 
                   tap: () {
-                    context.read<WatchListProvider>().add(widget._entry);
+                    
+                    if(context.read<WatchListProvider>().isOnList(widget._entry)){
+                      context.read<WatchListProvider>().remove(widget._entry);
+                    } else {
+                      context.read<WatchListProvider>().add(widget._entry);
+                    }
+                    
                     Navigator.of(context).pop();
                   }
                 ),

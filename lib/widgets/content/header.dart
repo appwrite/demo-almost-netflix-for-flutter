@@ -98,10 +98,14 @@ class ContentHeader extends StatelessWidget {
                 children: [
                   const Spacer(),
                   VerticalIconButton(
-                    icon: Icons.add,
-                    title: 'List',
+                    icon: context.read<WatchListProvider>().isOnList(featured) ? Icons.check : Icons.add,
+                    title: 'Watchlist',
                     tap: () {
-                      context.read<WatchListProvider>().add(featured);
+                      if(context.read<WatchListProvider>().isOnList(featured)){
+                        context.read<WatchListProvider>().remove(featured);
+                      } else {
+                        context.read<WatchListProvider>().add(featured);
+                      }
                     },
                   ),
 

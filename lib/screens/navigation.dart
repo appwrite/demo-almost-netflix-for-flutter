@@ -9,7 +9,9 @@
 //
 
 import 'package:flutter/material.dart';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:netflix_clone/data/entry.dart';
+import 'package:netflix_clone/screens/watchlist.dart';
 import 'package:provider/provider.dart';
 import 'package:netflix_clone/providers/entry.dart';
 import 'package:netflix_clone/Screens/home.dart';
@@ -35,6 +37,30 @@ class _NavScreenState extends State<NavScreen> {
       builder: (context, snapshot) {
         return Scaffold(
           body: home(),
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.transparent,
+            unselectedItemColor: Colors.white,
+            currentIndex: 0,
+            onTap: (index) async {
+              if(index == 1) {
+                await showDialog(
+                  context: context, 
+                  builder: (context) => const WatchlistScreen()
+                );
+
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.list),
+                label: 'Watchlist',
+              ),
+            ],
+          ),
         );
       }
     );

@@ -87,4 +87,6 @@ class WatchListProvider extends ChangeNotifier {
   Future<Uint8List> imageFor(Entry entry) async {
     return await ApiClient.storage.getFileView(fileId: entry.thumbnailImageId);
   }
+
+  bool isOnList(Entry entry) => _entries.any((e) => e.id == entry.id);
 }
