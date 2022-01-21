@@ -219,7 +219,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       side: const BorderSide(width: 1.0, color: Colors.grey),
                     ),
                     child: const Text(
-                      "Sign in",
+                      "Sign up",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
