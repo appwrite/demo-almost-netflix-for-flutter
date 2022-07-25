@@ -23,7 +23,7 @@ class WatchlistScreen extends StatefulWidget {
   const WatchlistScreen({Key? key}) : super(key: key);
 
   @override
-  _WatchlistScreenState createState() => _WatchlistScreenState();
+  State<WatchlistScreen> createState() => _WatchlistScreenState();
 }
 
 class _WatchlistScreenState extends State<WatchlistScreen> {
@@ -72,7 +72,7 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
                 ),
               ),
               Text(
-                (entry.description ?? "").substring(0, 50) + "...",
+                "${(entry.description ?? "").substring(0, 50)}...",
                 style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 14,

@@ -58,7 +58,7 @@ class AccountProvider extends ChangeNotifier {
       _current = result;
 
       notifyListeners();
-    } catch(_e) {
+    } catch(e) {
       throw Exception("Failed to register");
     }
   }

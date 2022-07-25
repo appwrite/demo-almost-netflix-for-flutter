@@ -25,7 +25,7 @@ class DetailsScreen extends StatefulWidget {
   const DetailsScreen({Key? key, required Entry entry,}) : _entry = entry, super(key: key);
 
   @override
-  _DetailsScreenState createState() => _DetailsScreenState();
+  State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
