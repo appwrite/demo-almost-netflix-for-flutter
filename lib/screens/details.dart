@@ -14,7 +14,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/providers/watchlist.dart';
 import 'package:netflix_clone/widgets/buttons/icon.dart';
-import 'package:netflix_clone/widgets/content/header.dart';
 import 'package:provider/provider.dart';
 import 'package:netflix_clone/data/entry.dart';
 import 'package:netflix_clone/providers/entry.dart';
@@ -23,7 +22,7 @@ import 'package:netflix_clone/providers/entry.dart';
 class DetailsScreen extends StatefulWidget {
   final Entry _entry;
 
-  DetailsScreen({Key? key, required Entry entry}) : _entry = entry, super(key: key);
+  const DetailsScreen({Key? key, required Entry entry,}) : _entry = entry, super(key: key);
 
   @override
   _DetailsScreenState createState() => _DetailsScreenState();

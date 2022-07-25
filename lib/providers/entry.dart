@@ -11,18 +11,17 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:appwrite/appwrite.dart';
 import 'package:netflix_clone/api/client.dart';
 import 'package:netflix_clone/data/entry.dart';
 import 'package:flutter/material.dart';
 
 class EntryProvider extends ChangeNotifier {
 
-  Map<String, Uint8List> _imageCache = {};
+  final Map<String, Uint8List> _imageCache = {};
 
-  static String _collectionId = "movies";
+  static const String _collectionId = "movies";
 
-  Entry? _selected = null;
+  Entry? _selected;
   Entry? get selected => _selected;
 
   Entry _featured = Entry.empty();
