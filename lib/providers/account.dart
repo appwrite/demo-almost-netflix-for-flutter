@@ -1,10 +1,10 @@
 //
 // account.dart
 // appflix
-// 
+//
 // Author: wess (me@wess.io)
 // Created: 01/03/2022
-// 
+//
 // Copywrite (c) 2022 Wess.io
 //
 
@@ -49,31 +49,29 @@ class AccountProvider extends ChangeNotifier {
   Future<void> register(String email, String password, String? name) async {
     try {
       final result = await ApiClient.account.create(
-        userId: 'unique()',
-        email: email, 
-        password: password, 
-        name: name
-      );
+          userId: 'unique()', email: email, password: password, name: name);
 
       _current = result;
 
       notifyListeners();
-    } catch(_e) {
+    } catch (e) {
       throw Exception("Failed to register");
     }
   }
 
   Future<void> login(String email, String password) async {
     try {
-      final result = await ApiClient.account.createSession(email: email, password: password);
+      final result = await ApiClient.account.createEmailSession(
+        email: email,
+        password: password,
+      );
       _session = result;
 
       Store.set("session", json.encode(result.toMap()));
 
       notifyListeners();
-    } catch(e) {
+    } catch (e) {
       _session = null;
     }
   }
-
 }

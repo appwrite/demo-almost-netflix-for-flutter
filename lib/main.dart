@@ -26,12 +26,14 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => EntryProvider()),
         ChangeNotifierProvider(create: (context) => WatchListProvider()),
       ],
-      child: Main(),
+      child: const Main(),
     )
   );
 }
 
 class Main extends StatelessWidget {
+  const Main({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -17,7 +17,6 @@ import 'package:netflix_clone/screens/details.dart';
 import 'package:netflix_clone/widgets/buttons/icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 
 class ContentHeader extends StatelessWidget {
   final Entry featured;

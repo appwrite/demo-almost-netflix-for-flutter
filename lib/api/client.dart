@@ -1,10 +1,10 @@
 //
 // provider.dart
 // figures
-// 
+//
 // Author: Wess Cope (me@wess.io)
 // Created: 06/15/2021
-// 
+//
 // Copywrite (c) 2021 Wess.io
 //
 
@@ -15,15 +15,16 @@ class ApiClient {
     Client client = Client();
 
     client
-    .setEndpoint('https://demo.appwrite.io/v1')
-    .setProject('almostNetflix2')
-    .setSelfSigned();
-    
+        .setEndpoint('https://demo.appwrite.io/v1')
+        .setProject('almostNetflix2')
+        .setSelfSigned();
+
     return client;
   }
 
   static Account get account => Account(_instance._client);
-  static Database get database => Database(_instance._client);
+  static Databases get database =>
+      Databases(_instance._client, databaseId: 'default');
   static Storage get storage => Storage(_instance._client);
 
   static final ApiClient _instance = ApiClient._internal();

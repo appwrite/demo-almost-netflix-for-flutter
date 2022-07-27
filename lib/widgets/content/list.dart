@@ -10,7 +10,6 @@
 
 import 'dart:typed_data';
 
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/screens/details.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +21,7 @@ class ContentList extends StatelessWidget {
   final String title;
   final List<Entry> contentList;
   bool isOriginal;
-  bool _rounded;
+  final bool _rounded;
 
   ContentList({
     Key? key,

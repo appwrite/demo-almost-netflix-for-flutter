@@ -1,13 +1,12 @@
 //
 // watchlist.dart
 // Netflix Clone
-// 
+//
 // Author: wess (wess@appwrite.io)
 // Created: 01/19/2022
-// 
+//
 // Copywrite (c) 2022 Appwrite.io
 //
-
 
 import 'dart:async';
 import 'dart:typed_data';
@@ -19,6 +18,7 @@ import 'package:flutter/material.dart';
 
 class WatchListProvider extends ChangeNotifier {
   final String _collectionId = "watchlists";
+  static const String _bucketId = "default";
 
   List<Entry> _entries = [];
   List<Entry> get entries => _entries;
@@ -34,12 +34,19 @@ class WatchListProvider extends ChangeNotifier {
       collectionId: _collectionId,
     );
 
-    final movieIds = watchlist.documents.map((document) => document.data["movieId"]).toList();
-    final entries = (await ApiClient.database.listDocuments(collectionId: 'movies')).documents.map((document) => Entry.fromJson(document.data)).toList();
-    final filtered = entries.where((entry) => movieIds.contains(entry.id)).toList();
+    final movieIds = watchlist.documents
+        .map((document) => document.data["movieId"])
+        .toList();
+    final entries =
+        (await ApiClient.database.listDocuments(collectionId: 'movies'))
+            .documents
+            .map((document) => Entry.fromJson(document.data))
+            .toList();
+    final filtered =
+        entries.where((entry) => movieIds.contains(entry.id)).toList();
 
     _entries = filtered;
-    
+
     notifyListeners();
 
     return _entries;
@@ -49,14 +56,13 @@ class WatchListProvider extends ChangeNotifier {
     final user = await this.user;
 
     var result = await ApiClient.database.createDocument(
-      collectionId: _collectionId,
-      documentId: 'unique()',
-      data: {
-        "userId": user.$id,
-        "movieId": entry.id, 
-        "createdAt": (DateTime.now().second / 1000).round()
-      }
-    );
+        collectionId: _collectionId,
+        documentId: 'unique()',
+        data: {
+          "userId": user.$id,
+          "movieId": entry.id,
+          "createdAt": (DateTime.now().second / 1000).round()
+        });
 
     _entries.add(Entry.fromJson(result.data));
 
@@ -67,25 +73,25 @@ class WatchListProvider extends ChangeNotifier {
     final user = await this.user;
 
     final result = await ApiClient.database.listDocuments(
-      collectionId: _collectionId,
-      queries: [
-        Query.equal("userId", user.$id),
-        Query.equal("movieId", entry.id)
-      ]
-    );
+        collectionId: _collectionId,
+        queries: [
+          Query.equal("userId", user.$id),
+          Query.equal("movieId", entry.id)
+        ]);
 
     final id = result.documents.first.$id;
 
-    await ApiClient.database.deleteDocument(
-      collectionId: _collectionId,
-      documentId: id
-    );
+    await ApiClient.database
+        .deleteDocument(collectionId: _collectionId, documentId: id);
 
     list();
   }
 
   Future<Uint8List> imageFor(Entry entry) async {
-    return await ApiClient.storage.getFileView(fileId: entry.thumbnailImageId);
+    return await ApiClient.storage.getFileView(
+      bucketId: _bucketId,
+      fileId: entry.thumbnailImageId,
+    );
   }
 
   bool isOnList(Entry entry) => _entries.any((e) => e.id == entry.id);

@@ -15,10 +15,10 @@ Color _colorFromHex(String hex) {
 
   switch(hex.length) {
     case 3:
-      hex = "FF" + hex + hex;
+      hex = "FF$hex$hex";
       break;
     case 6:
-      hex = "FF" + hex;
+      hex = "FF$hex";
       break;
     case 8:
       break;

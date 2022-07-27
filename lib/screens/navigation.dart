@@ -9,7 +9,6 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:netflix_clone/data/entry.dart';
 import 'package:netflix_clone/screens/watchlist.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +20,7 @@ class NavScreen extends StatefulWidget {
   const NavScreen({Key? key}) : super(key: key);
 
   @override
-  _NavScreenState createState() => _NavScreenState();
+  State<NavScreen> createState() => _NavScreenState();
 }
 
 class _NavScreenState extends State<NavScreen> {

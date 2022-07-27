@@ -10,17 +10,20 @@
 
 import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:netflix_clone/data/entry.dart';
 import 'package:netflix_clone/providers/entry.dart';
-import 'package:flutter/material.dart';
 import 'package:netflix_clone/screens/details.dart';
-import 'package:provider/provider.dart';
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 
 class Previews extends StatefulWidget {
   final String title;
   
-  const Previews({Key? key, required this.title});
+  const Previews({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
 
   @override
   State<Previews> createState() => _PreviewsState();
