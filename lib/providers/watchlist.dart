@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 
 class WatchListProvider extends ChangeNotifier {
   final String _collectionId = "watchlists";
-  static const String _bucketId = "Your bucket ID";
+  static const String _bucketId = "default";
 
   List<Entry> _entries = [];
   List<Entry> get entries => _entries;

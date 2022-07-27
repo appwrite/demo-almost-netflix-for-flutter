@@ -19,7 +19,7 @@ class EntryProvider extends ChangeNotifier {
   final Map<String, Uint8List> _imageCache = {};
 
   static const String _collectionId = "movies";
-  static const String _bucketId = "Your bucket ID";
+  static const String _bucketId = "default";
 
   Entry? _selected;
   Entry? get selected => _selected;
