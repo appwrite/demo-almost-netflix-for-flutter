@@ -54,8 +54,8 @@ class EntryProvider extends ChangeNotifier {
   }
 
   Future<void> list() async {
-    var result =
-        await ApiClient.database.listDocuments(collectionId: _collectionId);
+    var result = await ApiClient.database
+        .listDocuments(collectionId: _collectionId, databaseId: 'default');
 
     _entries = result.documents
         .map((document) => Entry.fromJson(document.data))

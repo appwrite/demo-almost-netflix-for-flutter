@@ -16,8 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:netflix_clone/data/store.dart';
 
 class AccountProvider extends ChangeNotifier {
-  User? _current;
-  User? get current => _current;
+  Account? _current;
+  Account? get current => _current;
 
   Session? _session;
   Session? get session => _session;

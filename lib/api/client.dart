@@ -23,8 +23,9 @@ class ApiClient {
   }
 
   static Account get account => Account(_instance._client);
-  static Databases get database =>
-      Databases(_instance._client, databaseId: 'default');
+  static Databases get database => Databases(_instance._client);
+  //, databaseId: 'default'
+
   static Storage get storage => Storage(_instance._client);
 
   static final ApiClient _instance = ApiClient._internal();

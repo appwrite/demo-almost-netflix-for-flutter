@@ -11,8 +11,9 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart';
+import 'package:appwrite/models.dart' as models;
 import 'package:netflix_clone/api/client.dart';
+import 'package:netflix_clone/constants.dart';
 import 'package:netflix_clone/data/entry.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class WatchListProvider extends ChangeNotifier {
   List<Entry> _entries = [];
   List<Entry> get entries => _entries;
 
-  Future<User> get user async {
+  Future<models.Account> get user async {
     return await ApiClient.account.get();
   }
 
@@ -31,17 +32,16 @@ class WatchListProvider extends ChangeNotifier {
     final user = await this.user;
 
     final watchlist = await ApiClient.database.listDocuments(
-      collectionId: _collectionId,
-    );
+        collectionId: _collectionId, databaseId: Constants.databaseId);
 
     final movieIds = watchlist.documents
         .map((document) => document.data["movieId"])
         .toList();
-    final entries =
-        (await ApiClient.database.listDocuments(collectionId: 'movies'))
-            .documents
-            .map((document) => Entry.fromJson(document.data))
-            .toList();
+    final entries = (await ApiClient.database.listDocuments(
+            collectionId: 'movies', databaseId: Constants.databaseId))
+        .documents
+        .map((document) => Entry.fromJson(document.data))
+        .toList();
     final filtered =
         entries.where((entry) => movieIds.contains(entry.id)).toList();
 
@@ -57,6 +57,7 @@ class WatchListProvider extends ChangeNotifier {
 
     var result = await ApiClient.database.createDocument(
         collectionId: _collectionId,
+        databaseId: Constants.databaseId,
         documentId: 'unique()',
         data: {
           "userId": user.$id,
@@ -73,6 +74,7 @@ class WatchListProvider extends ChangeNotifier {
     final user = await this.user;
 
     final result = await ApiClient.database.listDocuments(
+        databaseId: Constants.databaseId,
         collectionId: _collectionId,
         queries: [
           Query.equal("userId", user.$id),
@@ -81,8 +83,10 @@ class WatchListProvider extends ChangeNotifier {
 
     final id = result.documents.first.$id;
 
-    await ApiClient.database
-        .deleteDocument(collectionId: _collectionId, documentId: id);
+    await ApiClient.database.deleteDocument(
+        collectionId: _collectionId,
+        documentId: id,
+        databaseId: Constants.databaseId);
 
     list();
   }
