@@ -10,27 +10,30 @@
 
 import 'dart:async';
 import 'dart:typed_data';
-import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/appwrite.dart' as appwrite;
 import 'package:appwrite/models.dart';
 import 'package:netflix_clone/api/client.dart';
 import 'package:netflix_clone/data/entry.dart';
 import 'package:flutter/material.dart';
 
 class WatchListProvider extends ChangeNotifier {
+
+  static const String _databaseId = "default";
   final String _collectionId = "watchlists";
   static const String _bucketId = "default";
 
   List<Entry> _entries = [];
   List<Entry> get entries => _entries;
 
-  Future<User> get user async {
-    return await ApiClient.account.get();
+  Future<Account> get user {
+    return ApiClient.account.get();
   }
 
   Future<List<Entry>> list() async {
     final user = await this.user;
 
     final watchlist = await ApiClient.database.listDocuments(
+      databaseId: _databaseId,
       collectionId: _collectionId,
     );
 
@@ -38,7 +41,7 @@ class WatchListProvider extends ChangeNotifier {
         .map((document) => document.data["movieId"])
         .toList();
     final entries =
-        (await ApiClient.database.listDocuments(collectionId: 'movies'))
+        (await ApiClient.database.listDocuments(databaseId: _databaseId, collectionId: 'movies'))
             .documents
             .map((document) => Entry.fromJson(document.data))
             .toList();
@@ -56,6 +59,7 @@ class WatchListProvider extends ChangeNotifier {
     final user = await this.user;
 
     var result = await ApiClient.database.createDocument(
+        databaseId: _databaseId,
         collectionId: _collectionId,
         documentId: 'unique()',
         data: {
@@ -73,16 +77,17 @@ class WatchListProvider extends ChangeNotifier {
     final user = await this.user;
 
     final result = await ApiClient.database.listDocuments(
+        databaseId: _databaseId,
         collectionId: _collectionId,
         queries: [
-          Query.equal("userId", user.$id),
-          Query.equal("movieId", entry.id)
+          appwrite.Query.equal("userId", user.$id),
+          appwrite.Query.equal("movieId", entry.id)
         ]);
 
     final id = result.documents.first.$id;
 
     await ApiClient.database
-        .deleteDocument(collectionId: _collectionId, documentId: id);
+        .deleteDocument(databaseId: _databaseId, collectionId: _collectionId, documentId: id);
 
     list();
   }

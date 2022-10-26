@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 class EntryProvider extends ChangeNotifier {
   final Map<String, Uint8List> _imageCache = {};
 
+  static const String _databaseId = "default";
   static const String _collectionId = "movies";
   static const String _bucketId = "default";
 
@@ -55,7 +56,7 @@ class EntryProvider extends ChangeNotifier {
 
   Future<void> list() async {
     var result =
-        await ApiClient.database.listDocuments(collectionId: _collectionId);
+        await ApiClient.database.listDocuments(databaseId: _databaseId, collectionId: _collectionId);
 
     _entries = result.documents
         .map((document) => Entry.fromJson(document.data))
