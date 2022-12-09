@@ -67,7 +67,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: Text(
-                "Starring: ${widget._entry.cast}",
+                "Starring: ${widget._entry.cast.join(",")}",
                 style: const TextStyle(
                   fontSize: 12,
                   color: Colors.white

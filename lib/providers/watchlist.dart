@@ -65,7 +65,6 @@ class WatchListProvider extends ChangeNotifier {
         data: {
           "userId": user.$id,
           "movieId": entry.id,
-          "createdAt": (DateTime.now().second / 1000).round()
         });
 
     _entries.add(Entry.fromJson(result.data));

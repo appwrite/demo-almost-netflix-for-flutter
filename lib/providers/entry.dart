@@ -32,7 +32,7 @@ class EntryProvider extends ChangeNotifier {
   List<Entry> get entries => _entries;
   List<Entry> get originals => _entries.where((e) => e.isOriginal).toList();
   List<Entry> get animations => _entries
-      .where((e) => e.genres.toLowerCase().contains('animation'))
+      .where((e) => e.genres.contains('animation'))
       .toList();
   List<Entry> get newReleases => _entries
       .where((e) =>

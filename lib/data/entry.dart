@@ -17,13 +17,13 @@ class Entry {
   final String ageRestriction;
   final Duration durationMinutes;
   final String thumbnailImageId;
-  final String genres;
-  final String tags;
+  final List<String> genres;
+  final List<String> tags;
   final DateTime? netflixReleaseDate;
   final DateTime? releaseDate;
   final double trendingIndex;
   final bool isOriginal;
-  final String cast;
+  final List<String> cast;
 
   bool isEmpty() {
     if(id.isEmpty || name.isEmpty) {
@@ -57,11 +57,11 @@ class Entry {
       ageRestriction: '',
       durationMinutes: const Duration(minutes: -1),
       thumbnailImageId: '',
-      genres: '',
-      tags: '',
+      genres: [],
+      tags: [],
       trendingIndex: -1,
       isOriginal: false,
-      cast: '',
+      cast: [],
     );
   }
 
