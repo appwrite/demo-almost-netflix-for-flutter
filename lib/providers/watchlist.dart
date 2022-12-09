@@ -18,9 +18,9 @@ import 'package:flutter/material.dart';
 
 class WatchListProvider extends ChangeNotifier {
 
-  static const String _databaseId = "default";
-  final String _collectionId = "watchlists";
-  static const String _bucketId = "default";
+  static final String _databaseId = appwrite.ID.custom("default2");
+  final String _collectionId = appwrite.ID.custom("watchlists");
+  static final String _bucketId = appwrite.ID.custom("default1");
 
   List<Entry> _entries = [];
   List<Entry> get entries => _entries;
@@ -41,7 +41,7 @@ class WatchListProvider extends ChangeNotifier {
         .map((document) => document.data["movieId"])
         .toList();
     final entries =
-        (await ApiClient.database.listDocuments(databaseId: _databaseId, collectionId: 'movies'))
+        (await ApiClient.database.listDocuments(databaseId: _databaseId, collectionId: appwrite.ID.custom('movies')))
             .documents
             .map((document) => Entry.fromJson(document.data))
             .toList();
