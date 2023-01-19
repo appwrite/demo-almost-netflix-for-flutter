@@ -61,7 +61,7 @@ class WatchListProvider extends ChangeNotifier {
     var result = await ApiClient.database.createDocument(
         databaseId: _databaseId,
         collectionId: _collectionId,
-        documentId: 'unique()',
+        documentId: appwrite.ID.unique(),
         data: {
           "userId": user.$id,
           "movieId": entry.id,
