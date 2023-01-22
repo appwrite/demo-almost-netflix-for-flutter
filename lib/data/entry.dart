@@ -73,13 +73,13 @@ class Entry {
       ageRestriction: data['ageRestriction'],
       durationMinutes: Duration(minutes: data['durationMinutes']),
       thumbnailImageId: data['thumbnailImageId'],
-      genres: data['genres'],
-      tags: data['tags'],
+      genres: data['genres'].cast<String>(),
+      tags: data['tags'].cast<String>(),
       netflixReleaseDate: data['netflixReleaseDate'] != null ? DateTimeExt.fromUnixTimestampInt(data['netflixReleaseDate']) : null,
       releaseDate: data['releaseDate'] != null ? DateTimeExt.fromUnixTimestampInt(data['releaseDate']) : null,
       trendingIndex: data['trendingIndex'],
       isOriginal: data['isOriginal'],
-      cast: data['cast'],
+      cast: data['cast'].cast<String>(),
     );
   }
 }

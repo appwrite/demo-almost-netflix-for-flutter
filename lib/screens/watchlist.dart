@@ -72,7 +72,7 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
                 ),
               ),
               Text(
-                "${(entry.description ?? "").substring(0, 50)}...",
+                ((entry.description ?? "").length < 51) ? (entry.description ?? "") : "${(entry.description ?? "").substring(0, 50)}...",
                 style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 14,
@@ -88,8 +88,9 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
           child: VerticalIconButton(
             icon: Icons.delete, 
             title: '',
-            tap: () {
-              context.read<WatchListProvider>().remove(entry);
+            tap: () async {
+              await context.read<WatchListProvider>().remove(entry);
+              setState(() {});
             }
           ),
         ),

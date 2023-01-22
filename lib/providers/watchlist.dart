@@ -67,7 +67,7 @@ class WatchListProvider extends ChangeNotifier {
           "movieId": entry.id,
         });
 
-    _entries.add(Entry.fromJson(result.data));
+    // _entries.add(Entry.fromJson(result.data));
 
     list();
   }
