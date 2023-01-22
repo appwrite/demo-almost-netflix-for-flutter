@@ -15,7 +15,7 @@ class ApiClient {
     Client client = Client();
 
     client
-        .setEndpoint('https://10.0.2.2:443/v1')
+        .setEndpoint('https://demo.appwrite.io/v1')
         .setProject('almostNetflix2')
         .setSelfSigned();
 
