@@ -78,7 +78,7 @@ class ContentHeader extends StatelessWidget {
               child: SizedBox(
                 width: 250,
                 child: Text(
-                  featured.tags.replaceAll(", ", " • "),
+                  featured.tags.join(" • "),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,

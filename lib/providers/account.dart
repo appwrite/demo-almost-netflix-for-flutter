@@ -10,14 +10,15 @@
 
 import 'dart:convert';
 
+import 'package:appwrite/appwrite.dart' as appwrite;
 import 'package:netflix_clone/api/client.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/data/store.dart';
 
 class AccountProvider extends ChangeNotifier {
-  User? _current;
-  User? get current => _current;
+  Account? _current;
+  Account? get current => _current;
 
   Session? _session;
   Session? get session => _session;
@@ -49,7 +50,7 @@ class AccountProvider extends ChangeNotifier {
   Future<void> register(String email, String password, String? name) async {
     try {
       final result = await ApiClient.account.create(
-          userId: 'unique()', email: email, password: password, name: name);
+          userId: appwrite.ID.unique(), email: email, password: password, name: name);
 
       _current = result;
 
