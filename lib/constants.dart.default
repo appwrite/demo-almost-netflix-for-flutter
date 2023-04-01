@@ -1,0 +1,10 @@
+class AppwriteConstants {
+  static const endpoint = 'https://[HOSTNAME/IP]/v1';
+  static const projectId = 'test';
+  static const selfSigned = true;
+  static const databaseId = 'default';
+  static const moviesCollectionId = 'movies';
+  static const usersCollectionId = 'users';
+  static const watchlistCollectionId = 'watchlists';
+  static const postersBucketId = 'posters';
+}

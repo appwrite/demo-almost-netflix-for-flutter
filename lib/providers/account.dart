@@ -10,15 +10,16 @@
 
 import 'dart:convert';
 
-import 'package:appwrite/appwrite.dart' as appwrite;
-import 'package:netflix_clone/api/client.dart';
+import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix_clone/data/store.dart';
+
+import '/api/client.dart';
+import '/data/store.dart';
 
 class AccountProvider extends ChangeNotifier {
-  Account? _current;
-  Account? get current => _current;
+  User? _current;
+  User? get current => _current;
 
   Session? _session;
   Session? get session => _session;
@@ -44,17 +45,23 @@ class AccountProvider extends ChangeNotifier {
       _session = cached;
     }
 
+    notifyListeners();
+
     return _session != null;
   }
 
   Future<void> register(String email, String password, String? name) async {
     try {
       final result = await ApiClient.account.create(
-          userId: appwrite.ID.unique(), email: email, password: password, name: name);
+        userId: ID.unique(),
+        email: email,
+        password: password,
+        name: name,
+      );
 
       _current = result;
 
-      notifyListeners();
+      await login(email, password);
     } catch (e) {
       throw Exception("Failed to register");
     }

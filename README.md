@@ -7,19 +7,21 @@
 
 Before using this project, you will need to have Appwrite instance with Almost Netflix project ready. You can visit Project setup [GitHub repository](https://github.com/Meldiron/almost-netflix-project-setup) or [Dev.to post](https://dev.to/appwrite/did-we-just-build-a-netflix-clone-with-appwrite-28ok).
 
-## Usage
+## Setup
 
-```bash
-$ git clone https://github.com/appwrite/demo-almost-netflix-for-flutter.git
-$ cd demo-almost-netflix-for-flutter
-$ open -a Simulator.app
-$ flutter run
+1. Create `constants.dart` using `constants.dart.example` as a template and update the values with your own.
+2. Add a new Flutter Platform to your Appwrite Project:
+   - Android: `io.appwrite.netflix_clone`
+   - iOS: `io.appwrite.netflixClone`
+
+## Run the App
+
+```shell
+flutter pub get
+flutter run
 ```
 
-Make sure to update Endpoint and ProjectID in `lib/api/client.dart`.
-
-The application will be listening on port `3000`. You can visit in on URL `http://localhost:3000`.
-
+## Project Structure
 
 ### `assets`
 
