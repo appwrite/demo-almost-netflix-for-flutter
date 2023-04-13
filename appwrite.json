@@ -1,0 +1,301 @@
+{
+    "projectId": "almost-netflix",
+    "projectName": "Almost Netflix",
+    "databases": [
+        {
+            "$id": "default",
+            "name": "default",
+            "$createdAt": "2023-03-29T00:16:26.726+00:00",
+            "$updatedAt": "2023-03-29T00:16:26.726+00:00"
+        }
+    ],
+    "collections": [
+        {
+            "$id": "movies",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "databaseId": "default",
+            "name": "Movies",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "genres",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": true,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "ageRestriction",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "AR7",
+                        "AR13",
+                        "AR16",
+                        "AR18"
+                    ],
+                    "format": "enum",
+                    "default": null
+                },
+                {
+                    "key": "trendingIndex",
+                    "type": "double",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": -1.7976931348623157e+308,
+                    "max": 1.7976931348623157e+308,
+                    "default": null
+                },
+                {
+                    "key": "tags",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": true,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "releaseDate",
+                    "type": "datetime",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "format": "",
+                    "default": null
+                },
+                {
+                    "key": "isOriginal",
+                    "type": "boolean",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "default": null
+                },
+                {
+                    "key": "netflixReleaseDate",
+                    "type": "datetime",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "format": "",
+                    "default": null
+                },
+                {
+                    "key": "name",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "thumbnailImageId",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "durationMinutes",
+                    "type": "integer",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": 1,
+                    "max": 1000,
+                    "default": null
+                },
+                {
+                    "key": "cast",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": true,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "description",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "size": 5000,
+                    "default": null
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "isOriginalDESC",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "isOriginal"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                },
+                {
+                    "key": "releaseDateDESC",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "releaseDate"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                },
+                {
+                    "key": "nameFULLTEXT",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": [
+                        "name"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "genresFULLTEXT",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": [
+                        "genres"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "trendingIndexDESC",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "trendingIndex"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                },
+                {
+                    "key": "castFULLTEXT",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": [
+                        "cast"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "tagsFULLTEXT",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": [
+                        "tags"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "durationMinutesDESC",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "durationMinutes"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                }
+            ]
+        },
+        {
+            "$id": "watchlists",
+            "$permissions": [
+                "create(\"users\")"
+            ],
+            "databaseId": "default",
+            "name": "Watchlists",
+            "enabled": true,
+            "documentSecurity": true,
+            "attributes": [
+                {
+                    "key": "movie",
+                    "type": "relationship",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "movies",
+                    "relationType": "manyToOne",
+                    "twoWay": false,
+                    "twoWayKey": "watchlists",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                },
+                {
+                    "key": "userId",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "userIdASC",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "userId"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
+        }
+    ],
+    "buckets": [
+        {
+            "$id": "posters",
+            "$createdAt": "2023-04-07T21:23:16.876+00:00",
+            "$updatedAt": "2023-04-07T21:23:16.876+00:00",
+            "$permissions": [
+                "read(\"any\")"
+            ],
+            "fileSecurity": false,
+            "name": "Posters",
+            "enabled": true,
+            "maximumFileSize": 5000000,
+            "allowedFileExtensions": [
+                "jpg",
+                "png",
+                "heic",
+                "jpeg"
+            ],
+            "compression": "none",
+            "encryption": true,
+            "antivirus": true
+        }
+    ]
+}

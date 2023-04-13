@@ -1,10 +1,10 @@
 //
 // icon.dart
 // appflix
-// 
+//
 // Author: wess (me@wess.io)
 // Created: 01/03/2022
-// 
+//
 // Copywrite (c) 2022 Wess.io
 //
 
@@ -22,7 +22,9 @@ class VerticalIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapUp: (_) { tap(); },
+      onTapUp: (_) {
+        tap();
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

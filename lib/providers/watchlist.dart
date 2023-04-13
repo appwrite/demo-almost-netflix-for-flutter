@@ -8,95 +8,77 @@
 // Copywrite (c) 2022 Appwrite.io
 //
 
-import 'dart:async';
-import 'dart:typed_data';
-import 'package:appwrite/appwrite.dart' as appwrite;
+import 'dart:collection';
+
+import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:netflix_clone/api/client.dart';
-import 'package:netflix_clone/data/entry.dart';
 import 'package:flutter/material.dart';
 
+import '/api/client.dart';
+import '/constants.dart';
+import '/data/movie.dart';
+import '/data/watchlist.dart';
+
 class WatchListProvider extends ChangeNotifier {
+  final String _databaseId = ID.custom(AppwriteConstants.databaseId);
+  final String _collectionId = ID.custom(
+    AppwriteConstants.watchlistCollectionId,
+  );
 
-  static final String _databaseId = appwrite.ID.custom("default2");
-  final String _collectionId = appwrite.ID.custom("watchlists");
-  static final String _bucketId = appwrite.ID.custom("default1");
+  final Map<String, Watchlist> _watchlists = {};
+  UnmodifiableMapView<String, Watchlist> get watchlists =>
+      UnmodifiableMapView(_watchlists);
 
-  List<Entry> _entries = [];
-  List<Entry> get entries => _entries;
-
-  Future<Account> get user {
+  Future<User> get user {
     return ApiClient.account.get();
   }
 
-  Future<List<Entry>> list() async {
+  Future<UnmodifiableMapView<String, Watchlist>> list() async {
     final user = await this.user;
 
-    final watchlist = await ApiClient.database.listDocuments(
+    final documentList = await ApiClient.database.listDocuments(
       databaseId: _databaseId,
       collectionId: _collectionId,
+      queries: [
+        Query.equal("userId", user.$id),
+      ],
     );
 
-    final movieIds = watchlist.documents
-        .map((document) => document.data["movieId"])
-        .toList();
-    final entries =
-        (await ApiClient.database.listDocuments(databaseId: _databaseId, collectionId: appwrite.ID.custom('movies')))
-            .documents
-            .map((document) => Entry.fromJson(document.data))
-            .toList();
-    final filtered =
-        entries.where((entry) => movieIds.contains(entry.id)).toList();
+    _watchlists.clear();
 
-    _entries = filtered;
+    for (final document in documentList.documents) {
+      final watchlist = Watchlist.fromJson(document.data);
+      _watchlists[watchlist.movie.id] = watchlist;
+    }
 
     notifyListeners();
 
-    return _entries;
+    return watchlists;
   }
 
-  Future<void> add(Entry entry) async {
+  Future<void> add(Movie movie) async {
     final user = await this.user;
 
-    var result = await ApiClient.database.createDocument(
-        databaseId: _databaseId,
-        collectionId: _collectionId,
-        documentId: appwrite.ID.unique(),
-        data: {
-          "userId": user.$id,
-          "movieId": entry.id,
-        });
-
-    // _entries.add(Entry.fromJson(result.data));
-
-    list();
-  }
-
-  Future<void> remove(Entry entry) async {
-    final user = await this.user;
-
-    final result = await ApiClient.database.listDocuments(
-        databaseId: _databaseId,
-        collectionId: _collectionId,
-        queries: [
-          appwrite.Query.equal("userId", user.$id),
-          appwrite.Query.equal("movieId", entry.id)
-        ]);
-
-    final id = result.documents.first.$id;
-
-    await ApiClient.database
-        .deleteDocument(databaseId: _databaseId, collectionId: _collectionId, documentId: id);
-
-    list();
-  }
-
-  Future<Uint8List> imageFor(Entry entry) async {
-    return await ApiClient.storage.getFileView(
-      bucketId: _bucketId,
-      fileId: entry.thumbnailImageId,
+    await ApiClient.database.createDocument(
+      databaseId: _databaseId,
+      collectionId: _collectionId,
+      documentId: ID.unique(),
+      data: {
+        "userId": user.$id,
+        "movie": movie.id,
+      },
     );
+
+    list();
   }
 
-  bool isOnList(Entry entry) => _entries.any((e) => e.id == entry.id);
+  Future<void> remove(Watchlist watchlist) async {
+    await ApiClient.database.deleteDocument(
+      databaseId: _databaseId,
+      collectionId: _collectionId,
+      documentId: watchlist.id,
+    );
+
+    list();
+  }
 }

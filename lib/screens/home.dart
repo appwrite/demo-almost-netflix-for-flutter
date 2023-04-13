@@ -1,26 +1,25 @@
 //
 // home.dart
 // appflix
-// 
+//
 // Author: wess (me@wess.io)
 // Created: 01/03/2022
-// 
+//
 // Copywrite (c) 2022 Wess.io
 //
 
-import 'package:netflix_clone/providers/entry.dart';
-import 'package:netflix_clone/widgets/content/bar.dart';
-import 'package:netflix_clone/widgets/content/header.dart';
-import 'package:netflix_clone/widgets/content/list.dart';
-import 'package:netflix_clone/widgets/previews.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
+import '/providers/movies.dart';
+import '/providers/watchlist.dart';
+import '/widgets/content/bar.dart';
+import '/widgets/content/header.dart';
+import '/widgets/content/list.dart';
+import '/widgets/previews.dart';
 
 class HomeScreen extends StatefulWidget {
-
- const  HomeScreen({required Key key}) : super(key: key);
+  const HomeScreen({required Key key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -33,6 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    context.read<WatchListProvider>().list();
+
     _scrollController = ScrollController()
       ..addListener(() {
         setState(() {
@@ -40,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       });
 
-    
     super.initState();
   }
 
@@ -66,7 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _scrollController,
         slivers: [
           SliverToBoxAdapter(
-            child: ContentHeader(featured: context.watch<EntryProvider>().featured),
+            child: ContentHeader(
+              featured: context.watch<MoviesProvider>().featured,
+            ),
           ),
           const SliverPadding(
             padding: EdgeInsets.only(top: 20),
@@ -82,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(10),
               child: ContentList(
                 title: 'Only on Almost Netflix',
-                contentList: context.watch<EntryProvider>().entries,
+                contentList: context.watch<MoviesProvider>().originals,
                 isOriginal: false,
               ),
             ),
@@ -90,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: ContentList(
               title: 'New releases',
-              contentList: context.watch<EntryProvider>().originals,
+              contentList: context.watch<MoviesProvider>().newReleases,
               isOriginal: true,
             ),
           ),
@@ -99,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
             sliver: SliverToBoxAdapter(
               child: ContentList(
                 title: 'Animation',
-                contentList: context.watch<EntryProvider>().animations,
+                contentList: context.watch<MoviesProvider>().animations,
                 isOriginal: false,
               ),
             ),

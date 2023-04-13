@@ -1,16 +1,16 @@
 //
-// entry.dart
+// movie.dart
 // appflix
-// 
+//
 // Author: wess (me@wess.io)
 // Created: 01/03/2022
-// 
+//
 // Copywrite (c) 2022 Wess.io
 //
 
-import 'package:netflix_clone/extensions/datetime.dart';
+import '/constants.dart';
 
-class Entry {
+class Movie {
   final String id;
   final String name;
   final String? description;
@@ -26,14 +26,18 @@ class Entry {
   final List<String> cast;
 
   bool isEmpty() {
-    if(id.isEmpty || name.isEmpty) {
+    if (id.isEmpty || name.isEmpty) {
       return true;
     }
 
     return false;
   }
 
-  Entry({
+  String get thumbnailImageUrl => thumbnailImageId.isEmpty
+      ? ""
+      : "${AppwriteConstants.endpoint}/storage/buckets/${AppwriteConstants.postersBucketId}/files/$thumbnailImageId/view?project=${AppwriteConstants.projectId}";
+
+  Movie({
     required this.id,
     required this.name,
     this.description,
@@ -49,8 +53,8 @@ class Entry {
     required this.cast,
   });
 
-  static Entry empty() {
-    return Entry(
+  static Movie empty() {
+    return Movie(
       id: '',
       name: '',
       description: '',
@@ -65,8 +69,8 @@ class Entry {
     );
   }
 
-  static Entry fromJson(Map<String, dynamic> data) {
-    return Entry(
+  factory Movie.fromJson(Map<String, dynamic> data) {
+    return Movie(
       id: data['\$id'],
       name: data['name'],
       description: data['description'],
@@ -75,11 +79,31 @@ class Entry {
       thumbnailImageId: data['thumbnailImageId'],
       genres: data['genres'].cast<String>(),
       tags: data['tags'].cast<String>(),
-      netflixReleaseDate: data['netflixReleaseDate'] != null ? DateTimeExt.fromUnixTimestampInt(data['netflixReleaseDate']) : null,
-      releaseDate: data['releaseDate'] != null ? DateTimeExt.fromUnixTimestampInt(data['releaseDate']) : null,
+      netflixReleaseDate: data['netflixReleaseDate'] != null
+          ? DateTime.parse(data['netflixReleaseDate'])
+          : null,
+      releaseDate: data['releaseDate'] != null
+          ? DateTime.parse(data['releaseDate'])
+          : null,
       trendingIndex: data['trendingIndex'],
       isOriginal: data['isOriginal'],
       cast: data['cast'].cast<String>(),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        '\$id': id,
+        'name': name,
+        'description': description,
+        'ageRestriction': ageRestriction,
+        'durationMinutes': durationMinutes.inMinutes,
+        'thumbnailImageId': thumbnailImageId,
+        'genres': genres,
+        'tags': tags,
+        'netflixReleaseDate': netflixReleaseDate?.toUtc().toIso8601String(),
+        'releaseDate': releaseDate?.toUtc().toIso8601String(),
+        'trendingIndex': trendingIndex,
+        'isOriginal': isOriginal,
+        'cast': cast,
+      };
 }
