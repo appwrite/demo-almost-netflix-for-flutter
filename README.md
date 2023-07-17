@@ -43,7 +43,7 @@ We use the `lib/extensions` folder to extend the Dart language with helpers for 
 
 Our `lib/providers` folder is where we create our `ChangeNotifiers` that allow observation and access across our app.
 
-For more information about the Provider library which we used can be found in the [documentation](https://pub.dev/packages/provider)
+More information about the Provider library we used can be found in their [documentation](https://pub.dev/packages/provider)
 
 ### `lib/screens`
 
