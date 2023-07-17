@@ -37,7 +37,7 @@ The `lib/data` folder is where we put anything that represents data such as our 
 
 ### `lib/extensions`
 
-We use the `lib/extensions` folder to extend the Dart language with helpers for convenience methods.
+We use the `lib/extensions` folder to extend the Dart language with convenient helper methods.
 
 ### `lib/providers`
 
