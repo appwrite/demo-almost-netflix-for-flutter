@@ -5,7 +5,7 @@
 
 ## Requirements
 
-Before using this project, you will need to have Appwrite instance with Almost Netflix project ready. You can visit Project setup [GitHub repository](https://github.com/Meldiron/almost-netflix-project-setup) or [Dev.to post](https://dev.to/appwrite/did-we-just-build-a-netflix-clone-with-appwrite-28ok).
+Before using this project, you will need to have Appwrite instance with Almost Netflix project ready. You can visit the Project setup [GitHub repository](https://github.com/Meldiron/almost-netflix-project-setup) or [Dev.to post](https://dev.to/appwrite/did-we-just-build-a-netflix-clone-with-appwrite-28ok).
 
 ## Usage
 
@@ -37,13 +37,13 @@ The `lib/data` folder is where we put anything that represents data such as our 
 
 ### `lib/extensions`
 
-We use the `lib/extensions` folder to extend the Dart language with helpers for convience methods.
+We use the `lib/extensions` folder to extend the Dart language with convenient helper methods.
 
 ### `lib/providers`
 
 Our `lib/providers` folder is where we create our `ChangeNotifiers` that allow observation and access across our app.
 
-For more information about Provider library we used can be found in the [documentation](https://pub.dev/packages/provider)
+More information about the Provider library we used can be found in their [documentation](https://pub.dev/packages/provider)
 
 ### `lib/screens`
 
